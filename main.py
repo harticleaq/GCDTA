@@ -13,7 +13,6 @@ import os
 from utils.config_tools import get_defaults_yaml_args, update_args, save_configs
 from utils.predata import MyDataset, _n2t, SpecialDataset
 from torch.utils.data import DataLoader
-from scipy.stats import pearsonr
 from models.model import New
 from tqdm.auto import tqdm
 from datetime import datetime
@@ -180,7 +179,7 @@ def main():
                                pin_memory=True,
                                num_workers=8,
                                shuffle=True)
-                for phase_name in ['training', 'validation', 'test', "test71", "test105"]}
+                for phase_name in ['training', "validation"]}
 
     # Initital loss and model.
     args["loss_function"] = "mse"
@@ -244,8 +243,8 @@ def main():
             print(f"  Train Log: {train_results}")
             valid_results = evaluate(model, data_loaders["validation"], loss_func, log_file)
             print(f"  Valid Log: {valid_results}")
-        test_results = evaluate(model, data_loaders["test"], loss_func, log_file)
-        print(f"  Test Log: {test_results}")   
+        # test_results = evaluate(model, data_loaders["test"], loss_func, log_file)
+        # print(f"  Test Log: {test_results}")   
         if "test71" and "test105" in data_loaders:
             test71 = evaluate(model, data_loaders["test71"], loss_func, log_file)
             test105 = evaluate(model, data_loaders["test105"], loss_func, log_file)
