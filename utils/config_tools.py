@@ -1,14 +1,8 @@
 """Tools for loading and updating configs."""
 import os
 import yaml
-import json
 
 
-def save_configs(args, dir):
-    configs = {"args": args}
-    output = json.dumps(configs, separators=(",", ":\t"), indent=4, sort_keys=True)
-    with open(os.path.join(dir, "config.json"), "w", encoding="utf-8") as out:
-        out.write(output)
 
 def get_defaults_yaml_args(algo):
     """Load config file for user-specified algo and env.
